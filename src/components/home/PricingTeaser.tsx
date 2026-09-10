@@ -3,10 +3,8 @@ import { ArrowRight, Check } from "lucide-react";
 
 const tiers = [
   { label: "Junior", from: "800", to: "1,500", desc: "1–2 years experience" },
-  { label: "Junior+", from: "1,000", to: "1,800", desc: "2–3 years experience" },
   { label: "Mid", from: "1,200", to: "2,400", desc: "3–5 years experience", highlight: true },
-  { label: "Senior", from: "3,000", to: "5,000", desc: "5+ years experience" },
-  { label: "AI / Data", from: "3,000", to: "5,000", desc: "Specialists" },
+  { label: "Senior", from: "3,000", to: null, desc: "5+ years experience" },
 ];
 
 const included = [
@@ -41,12 +39,12 @@ export default function PricingTeaser() {
           </p>
         </div>
 
-        {/* Tier pills — 3 col on mobile, 5 across on md+ */}
-        <div className="grid grid-cols-3 sm:flex sm:flex-wrap sm:justify-center gap-3 mb-10 sm:mb-12">
+        {/* Tier pills — 3 col on mobile, 3 across on md+ */}
+        <div className="grid grid-cols-3 gap-3 mb-10 sm:mb-12 max-w-2xl mx-auto">
           {tiers.map((tier) => (
             <div
               key={tier.label}
-              className="rounded-2xl border px-3 sm:px-6 py-4 text-center sm:min-w-[140px] transition-all"
+              className="rounded-2xl border px-3 sm:px-6 py-4 text-center transition-all"
               style={{
                 backgroundColor: tier.highlight ? "#7C5CFF" : "white",
                 borderColor: tier.highlight ? "#7C5CFF" : "#E5E7EB",
@@ -59,15 +57,22 @@ export default function PricingTeaser() {
               >
                 {tier.label}
               </p>
+              {!tier.to && (
+                <p className="text-xs leading-none mb-0.5" style={{ color: tier.highlight ? "rgba(255,255,255,0.6)" : "#A6ADBB" }}>
+                  Starting from
+                </p>
+              )}
               <p className="text-lg font-bold leading-tight" style={{ fontFamily: "Manrope, sans-serif" }}>
                 ${tier.from}
               </p>
-              <p
-                className="text-xs mt-0.5"
-                style={{ color: tier.highlight ? "rgba(255,255,255,0.7)" : "#A6ADBB" }}
-              >
-                – ${tier.to}/mo
-              </p>
+              {tier.to && (
+                <p
+                  className="text-xs mt-0.5"
+                  style={{ color: tier.highlight ? "rgba(255,255,255,0.7)" : "#A6ADBB" }}
+                >
+                  – ${tier.to}/mo
+                </p>
+              )}
             </div>
           ))}
         </div>
