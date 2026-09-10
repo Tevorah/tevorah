@@ -1,0 +1,26 @@
+name: Deploy → Staging
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        id: deploy
+        run: |
+          URL=$(vercel --yes --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_SCOPE }} 2>&1 | grep -o 'https://tevorah-[^[:space:]]*\.vercel\.app' | tail -1)
+          echo "url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Alias to staging.tevorah.com
+        run: |
+          vercel alias set ${{ steps.deploy.outputs.url }} staging.tevorah.com \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
