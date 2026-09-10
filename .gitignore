@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw logo source assets
+/Tevorah_Logo_Pack_Elevate/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
