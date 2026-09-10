@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = process.env.RESEND_FROM ?? "noreply@tevorah.com";
 const TO = "support@tevorah.com";
 
 function row(label: string, value: string) {
@@ -49,6 +47,8 @@ function emailHtml(title: string, rows: string) {
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const FROM = process.env.RESEND_FROM ?? "noreply@tevorah.com";
     const body = await req.json();
     const { formType, ...data } = body as { formType: string; [k: string]: string };
 
