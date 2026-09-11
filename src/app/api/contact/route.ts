@@ -48,7 +48,7 @@ function emailHtml(title: string, rows: string) {
 export async function POST(req: NextRequest) {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const FROM = process.env.RESEND_FROM ?? "noreply@tevorah.com";
+    const FROM = process.env.RESEND_FROM ?? "hello@notify.tevorah.com";
     const body = await req.json();
     const { formType, ...data } = body as { formType: string; [k: string]: string };
 
