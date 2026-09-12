@@ -28,7 +28,7 @@ export default function TalentPreview() {
             </h2>
             <p className="mt-3 text-lg" style={{ color: "#707887" }}>
               Every profile is Tevorah Verified. Technical scores, AI fluency,
-              and communication — all assessed.
+              and communication, all assessed.
             </p>
           </div>
           <Link

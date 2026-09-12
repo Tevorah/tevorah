@@ -17,7 +17,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Tevorah — Build your tech team. Without the offshore uncertainty.",
+  title: "Tevorah: Build your tech team. Without the offshore uncertainty.",
   description:
     "AI-matched, human-verified technology talent from Sri Lanka. Build dedicated global teams with transparency, flexibility, and accountability.",
 };

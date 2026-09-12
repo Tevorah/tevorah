@@ -165,7 +165,7 @@ const howItWorksSteps = [
     num: "03",
     label: "VERIFY",
     title: "Selected candidates verify",
-    body: "Where relevant, you may be invited to complete Tevorah Verification — technical assessment, practical challenge, communication and AI fluency.",
+    body: "Where relevant, you may be invited to complete Tevorah Verification: technical assessment, practical challenge, communication and AI fluency.",
     color: "#3DDC97",
   },
   {
@@ -187,7 +187,7 @@ const howItWorksSteps = [
 const benefitItems = [
   { title: "Free to Join", body: "No candidate registration fee. Ever.", icon: Shield },
   { title: "Global Visibility", body: "Be considered for Tevorah client requirements across four regions.", icon: Globe },
-  { title: "Professional Representation", body: "Tevorah presents talent based on skills and fit — not just forwarding CVs.", icon: Star },
+  { title: "Professional Representation", body: "Tevorah presents talent based on skills and fit, not just forwarding CVs.", icon: Star },
   { title: "Direct Interviews", body: "Where appropriate, meet hiring companies directly.", icon: Users },
   { title: "Career Support", body: "Where you join Tevorah opportunities, we provide ongoing local support.", icon: Heart },
   { title: "Talent Development", body: "The Tevorah vision includes continuous AI and technical development for network members.", icon: TrendingUp },
@@ -517,7 +517,7 @@ export default function TalentNetworkPage() {
               style={{ borderColor: "rgba(124,92,255,0.3)", color: "#7C5CFF", backgroundColor: "rgba(124,92,255,0.06)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full animate-pulse inline-block" style={{ backgroundColor: "#3DDC97" }} />
-              Tevorah Talent Network — Now Open
+              Tevorah Talent Network: Now Open
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] mb-5 text-midnight" style={{ fontFamily: "Manrope, sans-serif" }}>
@@ -655,7 +655,7 @@ export default function TalentNetworkPage() {
               Technology people who want to build globally.
             </h2>
             <p className="text-base" style={{ color: "#707887" }}>
-              Junior &middot; Mid-level &middot; Senior — strong candidates at every stage are encouraged to register.
+              Junior &middot; Mid-level &middot; Senior. Strong candidates at every stage are encouraged to register.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -864,7 +864,7 @@ export default function TalentNetworkPage() {
                 Join the Tevorah Talent Network
               </h2>
               <p className="text-base mb-8" style={{ color: "#707887" }}>
-                It should take only a few minutes. You are not applying for a specific job — you are joining a network designed to connect Sri Lankan technology talent with global opportunities.
+                It should take only a few minutes. You are not applying for a specific job. You are joining a network designed to connect Sri Lankan technology talent with global opportunities.
               </p>
               <div className="space-y-4 mb-8">
                 {[
@@ -880,7 +880,7 @@ export default function TalentNetworkPage() {
               </div>
               <div className="rounded-2xl p-5" style={{ background: "linear-gradient(135deg, rgba(124,92,255,0.06), rgba(69,221,245,0.06))", border: "1px solid rgba(124,92,255,0.15)" }}>
                 <p className="text-sm font-semibold text-midnight mb-1">Already a Tevorah client?</p>
-                <p className="text-sm mb-3" style={{ color: "#707887" }}>Existing Tevorah clients can refer candidates directly — speak to your account manager.</p>
+                <p className="text-sm mb-3" style={{ color: "#707887" }}>Existing Tevorah clients can refer candidates directly. Speak to your account manager.</p>
                 <Link href="/#build-team" className="text-sm font-semibold inline-flex items-center gap-1" style={{ color: "#7C5CFF" }}>
                   Contact your account manager <ArrowRight size={13} />
                 </Link>

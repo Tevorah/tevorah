@@ -16,7 +16,7 @@ const tiers = [
     priceTo: "2,400",
     experience: "3–5 years",
     desc: "Independent engineers who can own features end-to-end.",
-    for: "Most startups and scaleups — the sweet spot.",
+    for: "Most startups and scaleups, the sweet spot.",
     highlight: true,
   },
   {
@@ -54,7 +54,7 @@ const faqs = [
   },
   {
     q: "Can I hire multiple people at once?",
-    a: "Yes. Many clients build full squads through Tevorah. There are no limits on team size — pricing scales linearly.",
+    a: "Yes. Many clients build full squads through Tevorah. There are no limits on team size, and pricing scales linearly.",
   },
   {
     q: "What if it's not working out?",

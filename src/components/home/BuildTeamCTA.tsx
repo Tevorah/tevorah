@@ -16,7 +16,7 @@ const roles = [
 ];
 
 const timelines = [
-  "ASAP — within 2 weeks",
+  "ASAP (within 2 weeks)",
   "1–4 weeks",
   "1–3 months",
   "Just exploring",

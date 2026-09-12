@@ -15,7 +15,7 @@ const steps = [
     step: "02",
     title: "Review verified profiles",
     description:
-      "Every candidate is Tevorah Verified — technical assessment, AI fluency score, and communication review. Proof over CVs.",
+      "Every candidate is Tevorah Verified: technical assessment, AI fluency score, and communication review. Proof over CVs.",
     color: "#45DDF5",
   },
   {
@@ -23,7 +23,7 @@ const steps = [
     step: "03",
     title: "Meet your candidates",
     description:
-      "Video interviews with shortlisted talent. You make the final call — we never place without your approval.",
+      "Video interviews with shortlisted talent. You make the final call. We never place without your approval.",
     color: "#3DDC97",
   },
   {

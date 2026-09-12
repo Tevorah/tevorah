@@ -58,7 +58,7 @@ export default function TalentPage() {
             Explore Talent
           </h1>
           <p className="text-base sm:text-lg max-w-2xl" style={{ color: "#707887" }}>
-            Every profile is AI-matched and human-verified. Technical score, AI fluency, and communication —
+            Every profile is AI-matched and human-verified. Technical score, AI fluency, and communication:
             all assessed before they reach you.
           </p>
 

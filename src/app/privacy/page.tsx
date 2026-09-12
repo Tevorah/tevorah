@@ -3,7 +3,7 @@ import Link from "next/link";
 const sections = [
   {
     title: "What we collect",
-    body: "When you submit a form on tevorah.com — to build a team, join the talent network, or apply as a partner — we collect the information you provide: name, email, phone number, company, role details, and, for talent applications, your CV and links you share (e.g. LinkedIn, portfolio).",
+    body: "When you submit a form on tevorah.com to build a team, join the talent network, or apply as a partner, we collect the information you provide: name, email, phone number, company, role details, and, for talent applications, your CV and links you share (e.g. LinkedIn, portfolio).",
   },
   {
     title: "How we use it",
@@ -11,7 +11,7 @@ const sections = [
   },
   {
     title: "Who sees it",
-    body: "Submissions are sent to the Tevorah team's internal inbox. Talent profile information may be shared with a prospective hiring company where there is a potential match — we won't do this without you being aware you're being considered for that process.",
+    body: "Submissions are sent to the Tevorah team's internal inbox. Talent profile information may be shared with a prospective hiring company where there is a potential match. We won't do this without you being aware you're being considered for that process.",
   },
   {
     title: "How long we keep it",
@@ -24,7 +24,7 @@ const sections = [
 ];
 
 export const metadata = {
-  title: "Privacy Policy — Tevorah",
+  title: "Privacy Policy | Tevorah",
 };
 
 export default function PrivacyPage() {
