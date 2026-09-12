@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 const sections = [
   {
@@ -23,8 +24,16 @@ const sections = [
   },
 ];
 
-export const metadata = {
-  title: "Terms of Service | Tevorah",
+const TITLE = "Terms of Service | Tevorah";
+const DESCRIPTION =
+  "The terms that govern using tevorah.com to build a team, join the talent network, or apply as a partner.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/terms" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/terms" },
+  twitter: { title: TITLE, description: DESCRIPTION },
 };
 
 export default function TermsPage() {

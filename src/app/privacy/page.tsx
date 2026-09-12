@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 const sections = [
   {
@@ -23,8 +24,16 @@ const sections = [
   },
 ];
 
-export const metadata = {
-  title: "Privacy Policy | Tevorah",
+const TITLE = "Privacy Policy | Tevorah";
+const DESCRIPTION =
+  "How Tevorah collects, uses, and protects the information you share through tevorah.com forms.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/privacy" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/privacy" },
+  twitter: { title: TITLE, description: DESCRIPTION },
 };
 
 export default function PrivacyPage() {

@@ -16,10 +16,36 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const SITE_URL = "https://tevorah.com";
+const SITE_NAME = "Tevorah";
+const DEFAULT_TITLE = "Tevorah: Build your tech team. Without the offshore uncertainty.";
+const DEFAULT_DESCRIPTION =
+  "AI-matched, human-verified technology talent from Sri Lanka. Build dedicated global teams with transparency, flexibility, and accountability.";
+
 export const metadata: Metadata = {
-  title: "Tevorah: Build your tech team. Without the offshore uncertainty.",
-  description:
-    "AI-matched, human-verified technology talent from Sri Lanka. Build dedicated global teams with transparency, flexibility, and accountability.",
+  metadataBase: new URL(SITE_URL),
+  title: DEFAULT_TITLE,
+  description: DEFAULT_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
