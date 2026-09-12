@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Check, ArrowRight } from "lucide-react";
+
+const TITLE = "Pricing | Tevorah";
+const DESCRIPTION =
+  "One monthly rate, everything included. Junior from $800/mo, Mid from $1,200/mo, Senior from $3,000/mo. No placement fees, no hidden costs, no long-term lock-in.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/pricing" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/pricing" },
+  twitter: { title: TITLE, description: DESCRIPTION },
+};
 
 const tiers = [
   {

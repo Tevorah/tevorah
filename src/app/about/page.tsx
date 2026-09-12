@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowRight, Shield, Zap, Eye, Heart, TrendingUp } from "lucide-react";
+
+const TITLE = "About Tevorah | Technology Teams, Built Differently";
+const DESCRIPTION =
+  "Tevorah is an AI-era global technology talent platform. We help startups, scaleups, and technology companies build dedicated technology teams using verified global talent, beginning with Sri Lanka.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/about" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/about" },
+  twitter: { title: TITLE, description: DESCRIPTION },
+};
 
 const values = [
   {
