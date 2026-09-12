@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 const trustItems = [
@@ -17,6 +18,8 @@ const previewCards = [
 ];
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden">
       {/* Background gradient */}
@@ -38,7 +41,12 @@ export default function Hero() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <motion.div
+          className="max-w-4xl mx-auto text-center"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+        >
           {/* Badge */}
           <div
             className="inline-flex items-center gap-2 mb-6 sm:mb-8 px-3 py-1.5 rounded-full border text-xs font-semibold"
@@ -109,7 +117,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Hero preview cards */}
         <div className="mt-14 sm:mt-20 relative">
@@ -117,10 +125,14 @@ export default function Hero() {
 
           {/* Mobile: horizontal scroll, Desktop: centered flex */}
           <div className="flex gap-4 overflow-x-auto sm:overflow-hidden sm:justify-center pb-4 sm:pb-0 px-1 -mx-1 scrollbar-hide snap-x snap-mandatory">
-            {previewCards.map((p) => (
-              <div
+            {previewCards.map((p, i) => (
+              <motion.div
                 key={p.name}
                 className="flex-shrink-0 w-[280px] sm:w-72 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm snap-start"
+                initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.12 }}
+                whileHover={reduceMotion ? undefined : { y: -4 }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
@@ -142,14 +154,24 @@ export default function Hero() {
                   ].map((s) => (
                     <div key={s.label} className="flex items-center justify-between text-xs gap-2">
                       <span className="flex-shrink-0" style={{ color: "#707887" }}>{s.label}</span>
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <div
+                        className="flex items-center gap-2 flex-1 min-w-0"
+                        role="progressbar"
+                        aria-label={`${s.label} score`}
+                        aria-valuenow={s.score}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      >
                         <div className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden">
-                          <div
+                          <motion.div
                             className="h-full rounded-full"
                             style={{
-                              width: `${s.score}%`,
                               background: s.score >= 90 ? "#3DDC97" : s.score >= 80 ? "#45DDF5" : "#7C5CFF",
                             }}
+                            initial={reduceMotion ? { width: `${s.score}%` } : { width: 0 }}
+                            whileInView={{ width: `${s.score}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.4 + i * 0.12, ease: "easeOut" }}
                           />
                         </div>
                         <span className="font-semibold text-midnight w-6 text-right flex-shrink-0">{s.score}</span>
@@ -169,7 +191,7 @@ export default function Hero() {
                     <span className="font-normal text-xs" style={{ color: "#707887" }}>/mo</span>
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

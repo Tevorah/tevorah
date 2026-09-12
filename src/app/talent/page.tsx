@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Search, MapPin, Clock, SlidersHorizontal, X } from "lucide-react";
 import { talentProfiles, tierLabels, type TalentTier } from "@/data/talent";
 import ScoreBar from "@/components/talent/ScoreBar";
@@ -266,13 +267,13 @@ export default function TalentPage() {
           <p className="text-sm mb-6" style={{ color: "#707887" }}>
             We have more talent in the pipeline. Tell us your requirements and we&apos;ll match you directly.
           </p>
-          <a
+          <Link
             href="/#build-team"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white text-sm transition-all"
             style={{ backgroundColor: "#7C5CFF" }}
           >
             Build a Team
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -178,6 +178,7 @@ export default function PartnerPage() {
     website: "",
     partnerType: "",
     description: "",
+    _gotcha: "",
   });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -574,6 +575,16 @@ export default function PartnerPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={form._gotcha}
+                    onChange={(e) => set("_gotcha", e.target.value)}
+                    style={{ position: "absolute", width: 1, height: 1, opacity: 0, overflow: "hidden", pointerEvents: "none" }}
+                  />
                   <div className="flex items-center justify-between mb-6">
                     <h3
                       className="text-lg font-bold text-midnight"

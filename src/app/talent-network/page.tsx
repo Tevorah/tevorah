@@ -420,6 +420,7 @@ interface FormState {
   portfolioUrl: string;
   opportunityPreference: string;
   consent: boolean;
+  _gotcha: string;
 }
 
 const EMPTY_FORM: FormState = {
@@ -433,6 +434,7 @@ const EMPTY_FORM: FormState = {
   portfolioUrl: "",
   opportunityPreference: "",
   consent: false,
+  _gotcha: "",
 };
 
 export default function TalentNetworkPage() {
@@ -912,6 +914,16 @@ export default function TalentNetworkPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={form._gotcha}
+                    onChange={(e) => set("_gotcha", e.target.value)}
+                    style={{ position: "absolute", width: 1, height: 1, opacity: 0, overflow: "hidden", pointerEvents: "none" }}
+                  />
                   <h3 className="text-lg font-bold text-midnight mb-2" style={{ fontFamily: "Manrope, sans-serif" }}>Candidate Registration</h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

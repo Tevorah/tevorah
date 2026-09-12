@@ -22,10 +22,10 @@ const footerLinks = {
     { label: "Contact", href: "/#build-team" },
   ],
   Markets: [
-    { label: "United States", href: "#" },
-    { label: "United Kingdom", href: "#" },
-    { label: "Middle East", href: "#" },
-    { label: "Australia", href: "#" },
+    { label: "United States", href: "/about#talent" },
+    { label: "United Kingdom", href: "/about#talent" },
+    { label: "Middle East", href: "/about#talent" },
+    { label: "Australia", href: "/about#talent" },
   ],
 };
 
@@ -93,11 +93,11 @@ export default function Footer() {
           style={{ borderColor: "#1A1E27" }}
         >
           <p className="text-xs" style={{ color: "#707887" }}>
-            © 2025 Tevorah. All rights reserved.
+            © {new Date().getFullYear()} Tevorah. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="footer-legal text-xs">Privacy Policy</Link>
-            <Link href="#" className="footer-legal text-xs">Terms of Service</Link>
+            <Link href="/privacy" className="footer-legal text-xs">Privacy Policy</Link>
+            <Link href="/terms" className="footer-legal text-xs">Terms of Service</Link>
           </div>
         </div>
       </div>
