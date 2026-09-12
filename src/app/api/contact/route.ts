@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getClientIp, isRateLimited } from "@/lib/rateLimit";
+import { escapeHtml } from "@/lib/escapeHtml";
 
 const TO = "support@tevorah.com";
 
@@ -8,8 +9,8 @@ function row(label: string, value: string) {
   if (!value) return "";
   return `
     <tr>
-      <td style="padding:6px 12px;font-weight:600;color:#707887;white-space:nowrap;vertical-align:top;font-size:13px;">${label}</td>
-      <td style="padding:6px 12px;color:#090B10;font-size:13px;">${value}</td>
+      <td style="padding:6px 12px;font-weight:600;color:#707887;white-space:nowrap;vertical-align:top;font-size:13px;">${escapeHtml(label)}</td>
+      <td style="padding:6px 12px;color:#090B10;font-size:13px;">${escapeHtml(value)}</td>
     </tr>`;
 }
 

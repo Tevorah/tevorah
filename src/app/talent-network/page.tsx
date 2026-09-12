@@ -21,6 +21,7 @@ import {
   Palette,
   BarChart3,
 } from "lucide-react";
+import { validateCvFile } from "@/lib/fileValidation";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -313,13 +314,6 @@ function TagInput({
   );
 }
 
-const ACCEPTED_TYPES = [
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-];
-const MAX_SIZE = 10 * 1024 * 1024;
-
 function FileUpload({
   file,
   onFile,
@@ -332,11 +326,7 @@ function FileUpload({
   const ref = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
 
-  const validate = (f: File) => {
-    if (!ACCEPTED_TYPES.includes(f.type)) return "Please upload a PDF, DOC or DOCX file.";
-    if (f.size > MAX_SIZE) return "File must be under 10 MB.";
-    return null;
-  };
+  const validate = (f: File) => validateCvFile(f);
 
   const handleFile = (f: File) => {
     const err = validate(f);
