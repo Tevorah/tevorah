@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     q: "How is talent verified?",
-    a: "Every profile completes Tevorah Verified — a technical assessment, an AI fluency benchmark, and a communication evaluation — before being shown to clients.",
+    a: "Every profile completes Tevorah Verified, which includes a technical assessment, an AI fluency benchmark, and a communication evaluation, before being shown to clients.",
   },
   {
     q: "How quickly can someone start?",

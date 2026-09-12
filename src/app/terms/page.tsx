@@ -3,11 +3,11 @@ import Link from "next/link";
 const sections = [
   {
     title: "Using this website",
-    body: "tevorah.com describes Tevorah's talent-matching services and lets you submit enquiries — to build a team, join the talent network, or apply as a partner. The information on this site is provided in good faith, but specific pricing, availability, and placement terms are confirmed directly with you before any commitment is made.",
+    body: "tevorah.com describes Tevorah's talent-matching services and lets you submit enquiries to build a team, join the talent network, or apply as a partner. The information on this site is provided in good faith, but specific pricing, availability, and placement terms are confirmed directly with you before any commitment is made.",
   },
   {
     title: "No guarantee of placement",
-    body: "Submitting a form — whether to hire, join the talent network, or partner with Tevorah — does not guarantee a placement, job offer, or partnership. Tevorah reviews each submission and follows up where there is a relevant fit.",
+    body: "Submitting a form, whether to hire, join the talent network, or partner with Tevorah, does not guarantee a placement, job offer, or partnership. Tevorah reviews each submission and follows up where there is a relevant fit.",
   },
   {
     title: "Talent network candidates",
@@ -15,7 +15,7 @@ const sections = [
   },
   {
     title: "Clients",
-    body: "Client engagements — pricing, contracts, and service terms — are governed by a separate agreement signed between Tevorah and the client company, not by this website.",
+    body: "Client engagements (pricing, contracts, and service terms) are governed by a separate agreement signed between Tevorah and the client company, not by this website.",
   },
   {
     title: "Intellectual property",
@@ -24,7 +24,7 @@ const sections = [
 ];
 
 export const metadata = {
-  title: "Terms of Service — Tevorah",
+  title: "Terms of Service | Tevorah",
 };
 
 export default function TermsPage() {

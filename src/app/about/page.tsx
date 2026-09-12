@@ -5,13 +5,13 @@ const values = [
   {
     icon: Shield,
     title: "Proof over promises",
-    desc: "Every claim about our talent is backed by structured assessment — not CVs, not interviews alone. Technical test, AI fluency benchmark, communication evaluation.",
+    desc: "Every claim about our talent is backed by structured assessment, not CVs, not interviews alone. Technical test, AI fluency benchmark, communication evaluation.",
     color: "#7C5CFF",
   },
   {
     icon: Heart,
     title: "People aren't resources",
-    desc: "We don't talk about 'headcount'. We talk about people — skilled professionals who join your team, contribute to your culture, and grow with your company.",
+    desc: "We don't talk about 'headcount'. We talk about people: skilled professionals who join your team, contribute to your culture, and grow with your company.",
     color: "#3DDC97",
   },
   {
@@ -96,7 +96,7 @@ export default function AboutPage() {
             <p className="text-base sm:text-lg lg:text-xl leading-relaxed" style={{ color: "#707887" }}>
               Tevorah is an AI-era global technology talent platform. We help startups,
               scaleups, and technology companies build dedicated technology teams using
-              verified global talent — beginning with Sri Lanka.
+              verified global talent, beginning with Sri Lanka.
             </p>
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function AboutPage() {
               </p>
               <p className="text-base leading-relaxed" style={{ color: "#707887" }}>
                 Tevorah was built to fix that. By combining structured AI-era assessment, direct
-                team integration, and transparent infrastructure — we make global hiring feel like
+                team integration, and transparent infrastructure, we make global hiring feel like
                 local hiring.
               </p>
             </div>
@@ -190,7 +190,7 @@ export default function AboutPage() {
                 and Australian business hours.
               </p>
               <p className="text-base leading-relaxed mb-6" style={{ color: "#707887" }}>
-                Tevorah starts here because we know this market deeply — and because we can verify and
+                Tevorah starts here because we know this market deeply, and because we can verify and
                 vouch for the talent we place. Great talent can live anywhere. We&apos;re proving it.
               </p>
               <Link
