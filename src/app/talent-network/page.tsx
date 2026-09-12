@@ -380,7 +380,7 @@ function FileUpload({
               <Upload size={18} style={{ color: "#7C5CFF" }} />
             </div>
             <p className="text-sm font-semibold text-midnight mb-1">Upload your latest CV</p>
-            <p className="text-xs mb-1" style={{ color: "#707887" }}>PDF, DOC or DOCX &middot; max 10 MB</p>
+            <p className="text-xs mb-1" style={{ color: "#707887" }}>PDF, DOC or DOCX &middot; max 4 MB</p>
             <p className="text-xs" style={{ color: "#A6ADBB" }}>Drag &amp; drop or click to browse</p>
           </>
         )}
