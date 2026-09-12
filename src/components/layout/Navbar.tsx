@@ -54,10 +54,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium transition-colors"
-                style={{ color: "#A6ADBB" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#A6ADBB")}
+                className="nav-link text-sm font-medium"
               >
                 {link.label}
               </Link>
@@ -68,16 +65,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               href="/talent"
-              className="text-sm font-semibold px-4 py-2 rounded-lg border transition-all"
-              style={{ color: "#A6ADBB", borderColor: "#1A1E27" }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "#ffffff";
-                (e.currentTarget as HTMLElement).style.borderColor = "#7C5CFF";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "#A6ADBB";
-                (e.currentTarget as HTMLElement).style.borderColor = "#1A1E27";
-              }}
+              className="navbar-outline-btn text-sm font-semibold px-4 py-2 rounded-lg border transition-all"
             >
               Explore Talent
             </Link>
@@ -95,6 +83,9 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 rounded-lg transition-colors"
             style={{ color: "#A6ADBB" }}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -103,7 +94,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t" style={{ backgroundColor: "#0D1017", borderColor: "#1A1E27" }}>
+        <div id="mobile-nav-menu" className="md:hidden border-t" style={{ backgroundColor: "#0D1017", borderColor: "#1A1E27" }}>
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
             {navLinks.map((link) => (
               <Link

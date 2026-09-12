@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Clock } from "lucide-react";
 import { talentProfiles, tierLabels } from "@/data/talent";
 import ScoreBar from "@/components/talent/ScoreBar";
@@ -25,7 +28,7 @@ export default function TalentPreview() {
             </h2>
             <p className="mt-3 text-lg" style={{ color: "#707887" }}>
               Every profile is Tevorah Verified. Technical scores, AI fluency,
-              and communication — all assessed.
+              and communication, all assessed.
             </p>
           </div>
           <Link
@@ -39,10 +42,15 @@ export default function TalentPreview() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {featured.map((profile) => (
-            <div
+          {featured.map((profile, i) => (
+            <motion.div
               key={profile.id}
               className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-gray-200 transition-all"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -4 }}
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-5">
@@ -129,7 +137,7 @@ export default function TalentPreview() {
                   </span>
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

@@ -1,4 +1,5 @@
 import { Search, ShieldCheck, Users, Rocket } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
 
 const steps = [
   {
@@ -14,7 +15,7 @@ const steps = [
     step: "02",
     title: "Review verified profiles",
     description:
-      "Every candidate is Tevorah Verified — technical assessment, AI fluency score, and communication review. Proof over CVs.",
+      "Every candidate is Tevorah Verified: technical assessment, AI fluency score, and communication review. Proof over CVs.",
     color: "#45DDF5",
   },
   {
@@ -22,7 +23,7 @@ const steps = [
     step: "03",
     title: "Meet your candidates",
     description:
-      "Video interviews with shortlisted talent. You make the final call — we never place without your approval.",
+      "Video interviews with shortlisted talent. You make the final call. We never place without your approval.",
     color: "#3DDC97",
   },
   {
@@ -62,7 +63,7 @@ export default function HowItWorks() {
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
-              <div key={step.step} className="relative">
+              <Reveal key={step.step} delay={i * 0.08} className="relative">
                 {/* Connector line */}
                 {i < steps.length - 1 && (
                   <div
@@ -93,7 +94,7 @@ export default function HowItWorks() {
                     {step.description}
                   </p>
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { getClientIp, isRateLimited } from "@/lib/rateLimit";
 
 const TO = "support@tevorah.com";
 
@@ -47,10 +48,23 @@ function emailHtml(title: string, rows: string) {
 
 export async function POST(req: NextRequest) {
   try {
+    if (isRateLimited(getClientIp(req))) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY);
     const FROM = process.env.RESEND_FROM ?? "hello@notify.tevorah.com";
     const body = await req.json();
-    const { formType, ...data } = body as { formType: string; [k: string]: string };
+    const { formType, _gotcha, ...rest } = body as { formType: string; _gotcha?: string; [k: string]: string | undefined };
+
+    // Honeypot: real users never fill this hidden field, bots that
+    // autofill every input do — silently accept without sending mail.
+    if (_gotcha) {
+      return NextResponse.json({ ok: true });
+    }
+
+    const data: { [k: string]: string } = {};
+    for (const [k, v] of Object.entries(rest)) data[k] = v ?? "";
 
     let subject: string;
     let html: string;

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Check, ChevronDown } from "lucide-react";
+import { Send, Check, ChevronDown, AlertCircle } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
 
 const roles = [
   "Full-Stack Engineer",
@@ -15,19 +16,21 @@ const roles = [
 ];
 
 const timelines = [
-  "ASAP — within 2 weeks",
+  "ASAP (within 2 weeks)",
   "1–4 weeks",
   "1–3 months",
   "Just exploring",
 ];
 
 function CustomSelect({
+  id,
   value,
   onChange,
   options,
   placeholder,
   error,
 }: {
+  id?: string;
   value: string;
   onChange: (v: string) => void;
   options: string[];
@@ -48,8 +51,11 @@ function CustomSelect({
   return (
     <div className="relative" ref={ref}>
       <button
+        id={id}
         type="button"
         onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         className="w-full px-3 py-2.5 pr-9 rounded-lg border text-sm text-left transition-colors bg-white"
         style={{
           borderColor: error ? "#EF4444" : open ? "#7C5CFF" : "#E5E7EB",
@@ -91,9 +97,13 @@ function CustomSelect({
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function FieldError({ msg }: { msg?: string }) {
+function FieldError({ id, msg }: { id?: string; msg?: string }) {
   if (!msg) return null;
-  return <p className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{msg}</p>;
+  return (
+    <p id={id} role="alert" className="text-xs mt-1.5" style={{ color: "#EF4444" }}>
+      {msg}
+    </p>
+  );
 }
 
 export default function BuildTeamCTA() {
@@ -107,6 +117,7 @@ export default function BuildTeamCTA() {
     role: "",
     timeline: "",
     notes: "",
+    _gotcha: "",
   });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
 
@@ -165,7 +176,7 @@ export default function BuildTeamCTA() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left */}
-          <div>
+          <Reveal>
             <p
               className="text-xs font-semibold tracking-widest uppercase mb-4"
               style={{ color: "#7C5CFF" }}
@@ -203,12 +214,12 @@ export default function BuildTeamCTA() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {/* Right — form */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+          <Reveal delay={0.1} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
             {submitted ? (
-              <div className="text-center py-12">
+              <div className="text-center py-12" role="status">
                 <div
                   className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                   style={{ backgroundColor: "rgba(61,220,151,0.1)" }}
@@ -237,42 +248,61 @@ export default function BuildTeamCTA() {
                   <span className="text-xs" style={{ color: "#A6ADBB" }}>* Required</span>
                 </div>
 
+                {/* Honeypot — hidden from sighted users and screen readers, bots that autofill every field trip it */}
+                <input
+                  type="text"
+                  name="_gotcha"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={form._gotcha}
+                  onChange={(e) => set("_gotcha", e.target.value)}
+                  style={{ position: "absolute", width: 1, height: 1, opacity: 0, overflow: "hidden", pointerEvents: "none" }}
+                />
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                    <label htmlFor="btc-name" className="block text-xs font-semibold mb-1.5 text-midnight">
                       Your name *
                     </label>
                     <input
+                      id="btc-name"
                       type="text"
                       placeholder="Alex Smith"
                       value={form.name}
                       onChange={(e) => set("name", e.target.value)}
                       className={inputClass("name")}
                       style={inputStyle("name")}
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "btc-name-error" : undefined}
                     />
-                    <FieldError msg={errors.name} />
+                    <FieldError id="btc-name-error" msg={errors.name} />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                    <label htmlFor="btc-email" className="block text-xs font-semibold mb-1.5 text-midnight">
                       Work email *
                     </label>
                     <input
+                      id="btc-email"
                       type="email"
                       placeholder="alex@company.com"
                       value={form.email}
                       onChange={(e) => set("email", e.target.value)}
                       className={inputClass("email")}
                       style={inputStyle("email")}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "btc-email-error" : undefined}
                     />
-                    <FieldError msg={errors.email} />
+                    <FieldError id="btc-email-error" msg={errors.email} />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                  <label htmlFor="btc-company" className="block text-xs font-semibold mb-1.5 text-midnight">
                     Company <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span>
                   </label>
                   <input
+                    id="btc-company"
                     type="text"
                     placeholder="Acme Inc."
                     value={form.company}
@@ -283,24 +313,26 @@ export default function BuildTeamCTA() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                  <label htmlFor="btc-role" className="block text-xs font-semibold mb-1.5 text-midnight">
                     Role you&apos;re hiring for *
                   </label>
                   <CustomSelect
+                    id="btc-role"
                     value={form.role}
                     onChange={(v) => { set("role", v); }}
                     options={roles}
                     placeholder="Select a role"
                     error={!!errors.role}
                   />
-                  <FieldError msg={errors.role} />
+                  <FieldError id="btc-role-error" msg={errors.role} />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                  <label htmlFor="btc-timeline" className="block text-xs font-semibold mb-1.5 text-midnight">
                     When do you need them? <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span>
                   </label>
                   <CustomSelect
+                    id="btc-timeline"
                     value={form.timeline}
                     onChange={(v) => set("timeline", v)}
                     options={timelines}
@@ -309,10 +341,11 @@ export default function BuildTeamCTA() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                  <label htmlFor="btc-notes" className="block text-xs font-semibold mb-1.5 text-midnight">
                     Anything else? <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span>
                   </label>
                   <textarea
+                    id="btc-notes"
                     rows={3}
                     placeholder="Tech stack, team size, specific requirements..."
                     value={form.notes}
@@ -333,7 +366,10 @@ export default function BuildTeamCTA() {
                 </button>
 
                 {submitError && (
-                  <p className="text-xs text-center" style={{ color: "#EF4444" }}>{submitError}</p>
+                  <p role="alert" className="flex items-center justify-center gap-1.5 text-xs text-center" style={{ color: "#EF4444" }}>
+                    <AlertCircle size={13} className="flex-shrink-0" />
+                    {submitError}
+                  </p>
                 )}
 
                 <p className="text-center text-xs" style={{ color: "#A6ADBB" }}>
@@ -341,7 +377,7 @@ export default function BuildTeamCTA() {
                 </p>
               </form>
             )}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

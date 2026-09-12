@@ -131,7 +131,7 @@ const reasons = [
   {
     icon: Zap,
     title: "AI-era positioning",
-    desc: "Every Tevorah candidate is assessed for AI fluency — not just technical ability. Your clients get talent that's ready for the way software is built today.",
+    desc: "Every Tevorah candidate is assessed for AI fluency, not just technical ability. Your clients get talent that's ready for the way software is built today.",
   },
   {
     icon: Users,
@@ -141,7 +141,7 @@ const reasons = [
   {
     icon: Check,
     title: "Full infrastructure",
-    desc: "Payroll, compliance, HR, and ongoing support — all handled by Tevorah. Less friction for your clients, more value for your partnership.",
+    desc: "Payroll, compliance, HR, and ongoing support, all handled by Tevorah. Less friction for your clients, more value for your partnership.",
   },
 ];
 
@@ -164,7 +164,7 @@ const steps = [
   {
     num: "04",
     title: "Go to market",
-    desc: "Start referring, integrating, or placing talent — with full Tevorah support behind you.",
+    desc: "Start referring, integrating, or placing talent, with full Tevorah support behind you.",
   },
 ];
 
@@ -178,6 +178,7 @@ export default function PartnerPage() {
     website: "",
     partnerType: "",
     description: "",
+    _gotcha: "",
   });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -260,7 +261,7 @@ export default function PartnerPage() {
             <p className="text-base sm:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8" style={{ color: "#707887" }}>
               Grow your business, extend your platform, or connect your graduates
               to global opportunities. Tevorah partners build the next generation
-              of technology teams — together.
+              of technology teams, together.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -300,7 +301,7 @@ export default function PartnerPage() {
               Built to grow with you
             </h2>
             <p className="mt-3 text-base max-w-xl mx-auto" style={{ color: "#707887" }}>
-              Whether you refer, integrate, or place — Tevorah gives you the
+              Whether you refer, integrate, or place, Tevorah gives you the
               infrastructure to deliver real value to your network.
             </p>
           </div>
@@ -500,12 +501,12 @@ export default function PartnerPage() {
                   },
                   {
                     value: "3",
-                    label: "Partner types — referral, technology, talent",
+                    label: "Partner types: referral, technology, talent",
                     color: "#45DDF5",
                   },
                   {
                     value: "4",
-                    label: "Regions — US, UK, Middle East, Australia",
+                    label: "Regions: US, UK, Middle East, Australia",
                     color: "#3DDC97",
                   },
                 ].map((s) => (
@@ -538,8 +539,8 @@ export default function PartnerPage() {
                   Already a client looking to refer?
                 </p>
                 <p className="text-sm mb-3" style={{ color: "#707887" }}>
-                  Existing Tevorah clients can join our referral programme directly
-                  — speak to your account manager or use the form.
+                  Existing Tevorah clients can join our referral programme directly.
+                  Speak to your account manager or use the form.
                 </p>
                 <Link
                   href="/#build-team"
@@ -574,6 +575,16 @@ export default function PartnerPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={form._gotcha}
+                    onChange={(e) => set("_gotcha", e.target.value)}
+                    style={{ position: "absolute", width: 1, height: 1, opacity: 0, overflow: "hidden", pointerEvents: "none" }}
+                  />
                   <div className="flex items-center justify-between mb-6">
                     <h3
                       className="text-lg font-bold text-midnight"

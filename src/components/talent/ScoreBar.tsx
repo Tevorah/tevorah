@@ -12,7 +12,14 @@ export default function ScoreBar({ label, score }: ScoreBarProps) {
       <span className="w-24 flex-shrink-0" style={{ color: "#707887" }}>
         {label}
       </span>
-      <div className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden">
+      <div
+        className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden"
+        role="progressbar"
+        aria-label={label}
+        aria-valuenow={score}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
         <div
           className="h-full rounded-full transition-all"
           style={{ width: `${score}%`, backgroundColor: color }}
