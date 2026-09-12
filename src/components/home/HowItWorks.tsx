@@ -1,4 +1,5 @@
 import { Search, ShieldCheck, Users, Rocket } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
 
 const steps = [
   {
@@ -62,7 +63,7 @@ export default function HowItWorks() {
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
-              <div key={step.step} className="relative">
+              <Reveal key={step.step} delay={i * 0.08} className="relative">
                 {/* Connector line */}
                 {i < steps.length - 1 && (
                   <div
@@ -93,7 +94,7 @@ export default function HowItWorks() {
                     {step.description}
                   </p>
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>

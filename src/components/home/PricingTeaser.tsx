@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 
 const tiers = [
@@ -41,8 +44,8 @@ export default function PricingTeaser() {
 
         {/* Tier pills — 3 col on mobile, 3 across on md+ */}
         <div className="grid grid-cols-3 gap-3 mb-10 sm:mb-12 max-w-2xl mx-auto">
-          {tiers.map((tier) => (
-            <div
+          {tiers.map((tier, i) => (
+            <motion.div
               key={tier.label}
               className="rounded-2xl border px-3 sm:px-6 py-4 text-center transition-all"
               style={{
@@ -50,6 +53,11 @@ export default function PricingTeaser() {
                 borderColor: tier.highlight ? "#7C5CFF" : "#E5E7EB",
                 color: tier.highlight ? "white" : "#090B10",
               }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -3 }}
             >
               <p
                 className="text-xs font-semibold mb-1"
@@ -73,7 +81,7 @@ export default function PricingTeaser() {
                   – ${tier.to}/mo
                 </p>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 

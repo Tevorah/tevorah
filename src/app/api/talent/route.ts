@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { getClientIp, isRateLimited } from "@/lib/rateLimit";
 
 const TO = "support@tevorah.com";
 
@@ -14,11 +15,22 @@ function row(label: string, value: string) {
 
 export async function POST(req: NextRequest) {
   try {
+    if (isRateLimited(getClientIp(req))) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY);
     const FROM = process.env.RESEND_FROM ?? "hello@notify.tevorah.com";
     const formData = await req.formData();
 
     const get = (k: string) => (formData.get(k) as string | null) ?? "";
+
+    // Honeypot: real users never fill this hidden field, bots that
+    // autofill every input do — silently accept without sending mail.
+    if (get("_gotcha")) {
+      return NextResponse.json({ ok: true });
+    }
+
     const name = get("fullName");
     const email = get("email");
     const phone = get("phone");
