@@ -7,18 +7,24 @@ import { ArrowRight, Check, Users, Briefcase, GraduationCap, Send, Globe, Zap, T
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const URL_RE = /^https?:\/\/.+\..+/;
 
-function FieldError({ msg }: { msg?: string }) {
+function FieldError({ id, msg }: { id?: string; msg?: string }) {
   if (!msg) return null;
-  return <p className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{msg}</p>;
+  return (
+    <p id={id} role="alert" className="text-xs mt-1.5" style={{ color: "#EF4444" }}>
+      {msg}
+    </p>
+  );
 }
 
 function CustomSelect({
+  id,
   value,
   onChange,
   options,
   placeholder,
   error,
 }: {
+  id?: string;
   value: string;
   onChange: (v: string) => void;
   options: string[];
@@ -39,8 +45,11 @@ function CustomSelect({
   return (
     <div className="relative" ref={ref}>
       <button
+        id={id}
         type="button"
         onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         className="w-full px-3 py-2.5 pr-9 rounded-lg border text-sm text-left transition-colors bg-white"
         style={{
           borderColor: error ? "#EF4444" : open ? "#7C5CFF" : "#E5E7EB",
@@ -597,93 +606,109 @@ export default function PartnerPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                      <label htmlFor="partner-name" className="block text-xs font-semibold mb-1.5 text-midnight">
                         Your name *
                       </label>
                       <input
+                        id="partner-name"
                         type="text"
                         placeholder="Alex Smith"
                         value={form.name}
                         onChange={(e) => set("name", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm focus:outline-none focus:border-purple-400 transition-colors"
                         style={{ color: "#090B10", borderColor: errors.name ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "partner-name-error" : undefined}
                       />
-                      <FieldError msg={errors.name} />
+                      <FieldError id="partner-name-error" msg={errors.name} />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                      <label htmlFor="partner-email" className="block text-xs font-semibold mb-1.5 text-midnight">
                         Work email *
                       </label>
                       <input
+                        id="partner-email"
                         type="email"
                         placeholder="alex@company.com"
                         value={form.email}
                         onChange={(e) => set("email", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm focus:outline-none focus:border-purple-400 transition-colors"
                         style={{ color: "#090B10", borderColor: errors.email ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "partner-email-error" : undefined}
                       />
-                      <FieldError msg={errors.email} />
+                      <FieldError id="partner-email-error" msg={errors.email} />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                      <label htmlFor="partner-company" className="block text-xs font-semibold mb-1.5 text-midnight">
                         Organisation *
                       </label>
                       <input
+                        id="partner-company"
                         type="text"
                         placeholder="Acme Partners"
                         value={form.company}
                         onChange={(e) => set("company", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm focus:outline-none focus:border-purple-400 transition-colors"
                         style={{ color: "#090B10", borderColor: errors.company ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.company}
+                        aria-describedby={errors.company ? "partner-company-error" : undefined}
                       />
-                      <FieldError msg={errors.company} />
+                      <FieldError id="partner-company-error" msg={errors.company} />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                      <label htmlFor="partner-website" className="block text-xs font-semibold mb-1.5 text-midnight">
                         Website <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span>
                       </label>
                       <input
+                        id="partner-website"
                         type="text"
                         placeholder="https://acme.com"
                         value={form.website}
                         onChange={(e) => set("website", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm focus:outline-none focus:border-purple-400 transition-colors"
                         style={{ color: "#090B10", borderColor: errors.website ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.website}
+                        aria-describedby={errors.website ? "partner-website-error" : undefined}
                       />
-                      <FieldError msg={errors.website} />
+                      <FieldError id="partner-website-error" msg={errors.website} />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                    <label htmlFor="partner-type" className="block text-xs font-semibold mb-1.5 text-midnight">
                       Partner type *
                     </label>
                     <CustomSelect
+                      id="partner-type"
                       value={form.partnerType}
                       onChange={(v) => { set("partnerType", v); }}
                       options={partnerTypeOptions}
                       placeholder="Select partner type"
                       error={!!errors.partnerType}
                     />
-                    <FieldError msg={errors.partnerType} />
+                    <FieldError id="partner-type-error" msg={errors.partnerType} />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                    <label htmlFor="partner-description" className="block text-xs font-semibold mb-1.5 text-midnight">
                       Tell us about your organisation *
                     </label>
                     <textarea
+                      id="partner-description"
                       rows={4}
                       placeholder="Who you are, how you work with clients or graduates, and what a partnership with Tevorah could look like..."
                       value={form.description}
                       onChange={(e) => set("description", e.target.value)}
                       className="w-full px-3 py-2.5 rounded-lg border text-sm focus:outline-none focus:border-purple-400 transition-colors resize-none"
                       style={{ color: "#090B10", borderColor: errors.description ? "#EF4444" : "#E5E7EB" }}
+                      aria-invalid={!!errors.description}
+                      aria-describedby={errors.description ? "partner-description-error" : undefined}
                     />
-                    <FieldError msg={errors.description} />
+                    <FieldError id="partner-description-error" msg={errors.description} />
                   </div>
 
                   <button

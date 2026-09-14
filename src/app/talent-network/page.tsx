@@ -266,15 +266,19 @@ const faqs = [
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function TagInput({
+  id,
   tags,
   onAdd,
   onRemove,
   placeholder,
+  ariaDescribedBy,
 }: {
+  id?: string;
   tags: string[];
   onAdd: (t: string) => void;
   onRemove: (t: string) => void;
   placeholder: string;
+  ariaDescribedBy?: string;
 }) {
   const [input, setInput] = useState("");
 
@@ -299,6 +303,7 @@ function TagInput({
         </span>
       ))}
       <input
+        id={id}
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -309,16 +314,19 @@ function TagInput({
         placeholder={tags.length === 0 ? placeholder : "Add another..."}
         className="flex-1 min-w-[140px] bg-transparent text-sm outline-none text-midnight"
         style={{ color: "#090B10" }}
+        aria-describedby={ariaDescribedBy}
       />
     </div>
   );
 }
 
 function FileUpload({
+  id,
   file,
   onFile,
   error,
 }: {
+  id?: string;
   file: File | null;
   onFile: (f: File | null, err?: string) => void;
   error?: string;
@@ -385,13 +393,16 @@ function FileUpload({
           </>
         )}
       </div>
-      {error && <p className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{error}</p>}
+      {error && <p id={id ? `${id}-error` : undefined} role="alert" className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{error}</p>}
       <input
+        id={id}
         ref={ref}
         type="file"
         accept=".pdf,.doc,.docx"
         style={{ position: "absolute", width: 1, height: 1, opacity: 0, overflow: "hidden", pointerEvents: "none" }}
         onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }}
+        aria-invalid={!!error}
+        aria-describedby={error && id ? `${id}-error` : undefined}
       />
     </div>
   );
@@ -918,97 +929,105 @@ export default function TalentNetworkPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">Full Name *</label>
-                      <input type="text" required placeholder="e.g. Akeel Mohamed" value={form.fullName} onChange={(e) => set("fullName", e.target.value)}
+                      <label htmlFor="tn-fullName" className="block text-xs font-semibold mb-1.5 text-midnight">Full Name *</label>
+                      <input id="tn-fullName" type="text" required placeholder="e.g. Akeel Mohamed" value={form.fullName} onChange={(e) => set("fullName", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
-                        style={{ borderColor: errors.fullName ? "#EF4444" : "#E5E7EB" }} />
-                      {errors.fullName && <p className="text-xs mt-1 text-red-500">{errors.fullName}</p>}
+                        style={{ borderColor: errors.fullName ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.fullName} aria-describedby={errors.fullName ? "tn-fullName-error" : undefined} />
+                      {errors.fullName && <p id="tn-fullName-error" role="alert" className="text-xs mt-1 text-red-500">{errors.fullName}</p>}
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">Email Address *</label>
-                      <input type="email" required placeholder="you@email.com" value={form.email} onChange={(e) => set("email", e.target.value)}
+                      <label htmlFor="tn-email" className="block text-xs font-semibold mb-1.5 text-midnight">Email Address *</label>
+                      <input id="tn-email" type="email" required placeholder="you@email.com" value={form.email} onChange={(e) => set("email", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
-                        style={{ borderColor: errors.email ? "#EF4444" : "#E5E7EB" }} />
-                      {errors.email && <p className="text-xs mt-1 text-red-500">{errors.email}</p>}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">Phone / WhatsApp *</label>
-                      <input type="tel" required placeholder="+94 77 000 0000" value={form.phone} onChange={(e) => set("phone", e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
-                        style={{ borderColor: errors.phone ? "#EF4444" : "#E5E7EB" }} />
-                      {errors.phone && <p className="text-xs mt-1 text-red-500">{errors.phone}</p>}
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">Current Position *</label>
-                      <input type="text" required placeholder="e.g. Full-Stack Developer" value={form.currentPosition} onChange={(e) => set("currentPosition", e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
-                        style={{ borderColor: errors.currentPosition ? "#EF4444" : "#E5E7EB" }} />
-                      {errors.currentPosition && <p className="text-xs mt-1 text-red-500">{errors.currentPosition}</p>}
+                        style={{ borderColor: errors.email ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.email} aria-describedby={errors.email ? "tn-email-error" : undefined} />
+                      {errors.email && <p id="tn-email-error" role="alert" className="text-xs mt-1 text-red-500">{errors.email}</p>}
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">Years of Experience *</label>
+                      <label htmlFor="tn-phone" className="block text-xs font-semibold mb-1.5 text-midnight">Phone / WhatsApp *</label>
+                      <input id="tn-phone" type="tel" required placeholder="+94 77 000 0000" value={form.phone} onChange={(e) => set("phone", e.target.value)}
+                        className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
+                        style={{ borderColor: errors.phone ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "tn-phone-error" : undefined} />
+                      {errors.phone && <p id="tn-phone-error" role="alert" className="text-xs mt-1 text-red-500">{errors.phone}</p>}
+                    </div>
+                    <div>
+                      <label htmlFor="tn-currentPosition" className="block text-xs font-semibold mb-1.5 text-midnight">Current Position *</label>
+                      <input id="tn-currentPosition" type="text" required placeholder="e.g. Full-Stack Developer" value={form.currentPosition} onChange={(e) => set("currentPosition", e.target.value)}
+                        className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
+                        style={{ borderColor: errors.currentPosition ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.currentPosition} aria-describedby={errors.currentPosition ? "tn-currentPosition-error" : undefined} />
+                      {errors.currentPosition && <p id="tn-currentPosition-error" role="alert" className="text-xs mt-1 text-red-500">{errors.currentPosition}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="tn-yearsExperience" className="block text-xs font-semibold mb-1.5 text-midnight">Years of Experience *</label>
                       <div className="relative">
-                        <select required value={form.yearsExperience} onChange={(e) => set("yearsExperience", e.target.value)}
+                        <select id="tn-yearsExperience" required value={form.yearsExperience} onChange={(e) => set("yearsExperience", e.target.value)}
                           className="w-full px-3 py-2.5 pr-9 rounded-lg border text-sm outline-none transition-colors bg-white appearance-none"
-                          style={{ borderColor: errors.yearsExperience ? "#EF4444" : "#E5E7EB", color: form.yearsExperience ? "#090B10" : "#A6ADBB" }}>
+                          style={{ borderColor: errors.yearsExperience ? "#EF4444" : "#E5E7EB", color: form.yearsExperience ? "#090B10" : "#A6ADBB" }}
+                          aria-invalid={!!errors.yearsExperience} aria-describedby={errors.yearsExperience ? "tn-yearsExperience-error" : undefined}>
                           <option value="" disabled>Select...</option>
                           {experienceBands.map((b) => <option key={b} value={b}>{b}</option>)}
                         </select>
                         <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "#A6ADBB" }} />
                       </div>
-                      {errors.yearsExperience && <p className="text-xs mt-1 text-red-500">{errors.yearsExperience}</p>}
+                      {errors.yearsExperience && <p id="tn-yearsExperience-error" role="alert" className="text-xs mt-1 text-red-500">{errors.yearsExperience}</p>}
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">Primary Area *</label>
+                      <label htmlFor="tn-primaryArea" className="block text-xs font-semibold mb-1.5 text-midnight">Primary Area *</label>
                       <div className="relative">
-                        <select required value={form.primaryArea} onChange={(e) => set("primaryArea", e.target.value)}
+                        <select id="tn-primaryArea" required value={form.primaryArea} onChange={(e) => set("primaryArea", e.target.value)}
                           className="w-full px-3 py-2.5 pr-9 rounded-lg border text-sm outline-none transition-colors bg-white appearance-none"
-                          style={{ borderColor: errors.primaryArea ? "#EF4444" : "#E5E7EB", color: form.primaryArea ? "#090B10" : "#A6ADBB" }}>
+                          style={{ borderColor: errors.primaryArea ? "#EF4444" : "#E5E7EB", color: form.primaryArea ? "#090B10" : "#A6ADBB" }}
+                          aria-invalid={!!errors.primaryArea} aria-describedby={errors.primaryArea ? "tn-primaryArea-error" : undefined}>
                           <option value="" disabled>Select...</option>
                           {primaryAreas.map((a) => <option key={a} value={a}>{a}</option>)}
                         </select>
                         <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "#A6ADBB" }} />
                       </div>
-                      {errors.primaryArea && <p className="text-xs mt-1 text-red-500">{errors.primaryArea}</p>}
+                      {errors.primaryArea && <p id="tn-primaryArea-error" role="alert" className="text-xs mt-1 text-red-500">{errors.primaryArea}</p>}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-midnight">
+                    <label htmlFor="tn-technologies" className="block text-xs font-semibold mb-1.5 text-midnight">
                       Technologies & Skills * <span className="font-normal" style={{ color: "#A6ADBB" }}>(type and press Enter)</span>
                     </label>
-                    <TagInput tags={technologies} onAdd={(t) => { setTechnologies((p) => [...p, t]); setErrors((p) => ({ ...p, technologies: undefined })); }} onRemove={(t) => setTechnologies((p) => p.filter((x) => x !== t))} placeholder="React, Next.js, Python, AWS..." />
-                    {errors.technologies && <p className="text-xs mt-1 text-red-500">{errors.technologies}</p>}
+                    <TagInput id="tn-technologies" tags={technologies} onAdd={(t) => { setTechnologies((p) => [...p, t]); setErrors((p) => ({ ...p, technologies: undefined })); }} onRemove={(t) => setTechnologies((p) => p.filter((x) => x !== t))} placeholder="React, Next.js, Python, AWS..." ariaDescribedBy={errors.technologies ? "tn-technologies-error" : undefined} />
+                    {errors.technologies && <p id="tn-technologies-error" role="alert" className="text-xs mt-1 text-red-500">{errors.technologies}</p>}
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">LinkedIn <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span></label>
-                      <input type="text" placeholder="https://linkedin.com/in/yourname" value={form.linkedInUrl} onChange={(e) => set("linkedInUrl", e.target.value)}
+                      <label htmlFor="tn-linkedInUrl" className="block text-xs font-semibold mb-1.5 text-midnight">LinkedIn <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span></label>
+                      <input id="tn-linkedInUrl" type="text" placeholder="https://linkedin.com/in/yourname" value={form.linkedInUrl} onChange={(e) => set("linkedInUrl", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
-                        style={{ borderColor: errors.linkedInUrl ? "#EF4444" : "#E5E7EB" }} />
-                      {errors.linkedInUrl && <p className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{errors.linkedInUrl}</p>}
+                        style={{ borderColor: errors.linkedInUrl ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.linkedInUrl} aria-describedby={errors.linkedInUrl ? "tn-linkedInUrl-error" : undefined} />
+                      {errors.linkedInUrl && <p id="tn-linkedInUrl-error" role="alert" className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{errors.linkedInUrl}</p>}
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-midnight">GitHub / Portfolio <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span></label>
-                      <input type="text" placeholder="https://github.com/you" value={form.portfolioUrl} onChange={(e) => set("portfolioUrl", e.target.value)}
+                      <label htmlFor="tn-portfolioUrl" className="block text-xs font-semibold mb-1.5 text-midnight">GitHub / Portfolio <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span></label>
+                      <input id="tn-portfolioUrl" type="text" placeholder="https://github.com/you" value={form.portfolioUrl} onChange={(e) => set("portfolioUrl", e.target.value)}
                         className="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-colors text-midnight bg-white"
-                        style={{ borderColor: errors.portfolioUrl ? "#EF4444" : "#E5E7EB" }} />
-                      {errors.portfolioUrl && <p className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{errors.portfolioUrl}</p>}
+                        style={{ borderColor: errors.portfolioUrl ? "#EF4444" : "#E5E7EB" }}
+                        aria-invalid={!!errors.portfolioUrl} aria-describedby={errors.portfolioUrl ? "tn-portfolioUrl-error" : undefined} />
+                      {errors.portfolioUrl && <p id="tn-portfolioUrl-error" role="alert" className="text-xs mt-1.5" style={{ color: "#EF4444" }}>{errors.portfolioUrl}</p>}
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold mb-2 text-midnight">Preferred Opportunity <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span></label>
+                  <fieldset>
+                    <legend className="block text-xs font-semibold mb-2 text-midnight">Preferred Opportunity <span className="font-normal" style={{ color: "#A6ADBB" }}>(optional)</span></legend>
                     <div className="flex flex-wrap gap-2">
                       {["Full-time remote", "Contract", "Both"].map((opt) => (
-                        <button key={opt} type="button" onClick={() => set("opportunityPreference", form.opportunityPreference === opt ? "" : opt)}
+                        <button key={opt} type="button" aria-pressed={form.opportunityPreference === opt} onClick={() => set("opportunityPreference", form.opportunityPreference === opt ? "" : opt)}
                           className="px-4 py-2 rounded-lg border text-xs font-semibold transition-all"
                           style={{
                             backgroundColor: form.opportunityPreference === opt ? "#7C5CFF" : "transparent",
@@ -1019,11 +1038,11 @@ export default function TalentNetworkPage() {
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </fieldset>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-midnight">Latest CV *</label>
-                    <FileUpload file={cvFile} onFile={(f, err) => { setCvFile(f); setErrors((p) => ({ ...p, cv: err ?? (f ? undefined : p.cv) })); }} error={errors.cv} />
+                    <label htmlFor="tn-cv" className="block text-xs font-semibold mb-1.5 text-midnight">Latest CV *</label>
+                    <FileUpload id="tn-cv" file={cvFile} onFile={(f, err) => { setCvFile(f); setErrors((p) => ({ ...p, cv: err ?? (f ? undefined : p.cv) })); }} error={errors.cv} />
                   </div>
 
                   <div>
